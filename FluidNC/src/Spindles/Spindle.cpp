@@ -15,6 +15,8 @@ namespace Spindles {
     // ========================= Spindle ==================================
 
     void Spindle::switchSpindle(uint32_t new_tool, SpindleList spindles, Spindle*& spindle) {
+        //Not using auto spindle...
+        
         // Find the spindle whose tool number is closest to and below the new tool number
         /*
         Spindle* candidate = nullptr;
@@ -43,6 +45,8 @@ namespace Spindles {
         log_info("Using spindle " << spindle->name());
         //spindle->activate();
         */
+
+       //This is the important line...
         spindle->tool_change(new_tool, false);
     }
 

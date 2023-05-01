@@ -1,0 +1,171 @@
+name: "New Mill 4 Axis RLG"
+board: "ESP32 Dev Controller V4"
+# Note, I2C OLED installed OLED SCL gpio.12 and OLED SDA gpio.15
+
+i2c0:
+   sda_pin: gpio.15
+   scl_pin: gpio.12
+        
+oled:
+   i2c_num: 0
+   i2c_address: 60
+   width: 128
+   height: 64
+   radio_delay_ms: 1000
+
+stepping:
+  engine: RMT
+  idle_ms: 250
+  dir_delay_us: 1
+  pulse_us: 2
+  disable_delay_us: 0
+
+axes:
+  shared_stepper_disable_pin: gpio.17:low
+  
+  x:
+    steps_per_mm: 800
+    max_rate_mm_per_min: 2000
+    acceleration_mm_per_sec2: 25
+    max_travel_mm: 400
+    soft_limits: false
+    homing:
+      cycle: 2
+      mpos_mm: 10
+      feed_mm_per_min: 50
+      seek_mm_per_min: 200
+      settle_ms: 500
+      positive_direction: false
+    
+    motor0:
+      limit_all_pin: gpio.35:low
+      stepstick:
+        direction_pin: gpio.5
+        step_pin: gpio.18
+    motor1:
+      null_motor:
+
+  y:
+    steps_per_mm: 800
+    max_rate_mm_per_min: 2000
+    acceleration_mm_per_sec2: 25
+    max_travel_mm: 200
+    soft_limits: false
+    homing:
+      cycle: 2
+      mpos_mm: 10
+      feed_mm_per_min: 50
+      seek_mm_per_min: 200
+      settle_ms: 500
+      positive_direction: false
+
+    motor0:
+      limit_all_pin: gpio.34:low
+      stepstick:
+        direction_pin: gpio.14
+        step_pin: gpio.27
+    motor1:
+      null_motor:
+
+  z:
+    steps_per_mm: 800
+    max_rate_mm_per_min: 2000
+    acceleration_mm_per_sec2: 25
+    max_travel_mm: 250
+    soft_limits: false
+    homing:
+      cycle: 1
+      mpos_mm: 10
+      feed_mm_per_min: 50
+      seek_mm_per_min: 200
+      settle_ms: 500
+      positive_direction: false
+
+    motor0:
+      limit_all_pin: gpio.39:low
+      stepstick:
+        direction_pin: gpio.26
+        step_pin: gpio.25
+    motor1:
+      null_motor:
+
+  A:
+    steps_per_mm: 16
+    max_rate_mm_per_min: 2000
+    acceleration_mm_per_sec2: 25
+    max_travel_mm: 10000000.0
+
+    motor0:
+      limit_all_pin: NO_PIN
+      stepstick:
+        direction_pin: gpio.33
+        step_pin: gpio.32
+    motor1:
+      null_motor:
+
+coolant:
+  flood_pin: gpio.4
+  mist_pin:  NO_PIN
+
+probe:
+  pin: gpio.23:low:pu
+
+# PWM:
+#   pwm_hz: 3000
+#   output_pin: gpio.2
+#   enable_pin: gpio.16
+#   direction_pin: NO_PIN
+#   disable_with_s0: true
+#   s0_with_disable: true
+#   spinup_ms: 1000
+#   spindown_ms: 1000
+#   tool_num: 0
+#   speed_map: 0=2.5% 10000=80%
+
+kress_atc:
+  atc_valve_pin: gpio.13
+  atc_dustoff_pin: NO_PIN
+  ets_dustoff_pin: NO_PIN
+  # ets_mpos_mm: 157.00 142.00 -31.00
+  # tool1_mpos_mm: 197.0 142.0 -26.0
+  # tool2_mpos_mm: 237.0 142.0 -26.0
+  # tool3_mpos_mm: 277.0 142.0 -26.0
+  # tool4_mpos_mm: 317.0 142.0 -26.0
+  direction_pin: NO_PIN
+  output_pin: gpio.2
+  enable_pin: gpio.16
+  disable_with_s0: false
+  s0_with_disable: true
+  spinup_ms: 3000
+  spindown_ms: 4000
+  tool_num: 0
+  speed_map: 0=0.000% 0=100.000% 1=100.000%
+
+
+user_outputs:
+  analog0_pin: NO_PIN
+  analog1_pin: NO_PIN
+  analog2_pin: NO_PIN
+  analog3_pin: NO_PIN
+  analog0_hz: 3000
+  analog1_hz: 3000
+  analog2_hz: 3000
+  analog3_hz: 3000
+# digital0_pin: gpio.13
+  digital0_pin: NO_PIN
+  digital1_pin: gpio.19
+  digital2_pin: gpio.21
+  digital3_pin: NO_PIN
+
+control:
+  safety_door_pin: NO_PIN
+  reset_pin: gpio.36:low
+  feed_hold_pin: gpio.22:low:pu
+  cycle_start_pin: NO_PIN
+  macro0_pin: NO_PIN
+  macro1_pin: NO_PIN
+  macro2_pin: NO_PIN
+  macro3_pin: NO_PIN
+
+start:
+  must_home: false
