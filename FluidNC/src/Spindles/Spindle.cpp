@@ -16,6 +16,7 @@ namespace Spindles {
 
     void Spindle::switchSpindle(uint32_t new_tool, SpindleList spindles, Spindle*& spindle) {
         // Find the spindle whose tool number is closest to and below the new tool number
+        /*
         Spindle* candidate = nullptr;
         for (auto s : spindles) {
             if (s->_tool <= new_tool && (!candidate || candidate->_tool < s->_tool)) {
@@ -26,6 +27,7 @@ namespace Spindles {
             if (candidate != spindle) {
                 if (spindle != nullptr) {
                     spindle->stop();
+                    //spindle->deactivate();
                 }
                 spindle = candidate;
             }
@@ -39,6 +41,9 @@ namespace Spindles {
             }
         }
         log_info("Using spindle " << spindle->name());
+        //spindle->activate();
+        */
+        spindle->tool_change(new_tool, false);
     }
 
     bool Spindle::isRateAdjusted() {
@@ -206,4 +211,5 @@ namespace Spindles {
         _current_state = state;
         _current_speed = speed;
     }
+
 }

@@ -1,5 +1,6 @@
 // Copyright (c) 2020 -	Bart Dring
 // Use of this source code is governed by a GPLv3 license that can be found in the LICENSE file.
+// Needed updates for ATC
 
 #pragma once
 
@@ -63,11 +64,22 @@ namespace Spindles {
         uint32_t _spinup_ms   = 0;
         uint32_t _spindown_ms = 0;
 
-        int _tool = -1;
-
+        int                                    _tool = -1;
+        std::vector<float>                     _offset;
         std::vector<Configuration::speedEntry> _speeds;
 
         bool _off_on_alarm = false;
+
+        // ATC Stuff ADDED BY RLG from GRBL ATC code
+        virtual void atc_init() {}     //
+        //virtual void activate();       // can't get these functions to compile
+        //virtual void deactivate() {};  // can't get these functions to compile
+
+        // preselect is used to notify the ATC of a pending tool change in case the ATC can prepare
+        // for the futute M6.  This is done with M61, which is not parsed yet.
+        virtual bool tool_change(uint8_t new_tool, bool pre_select) { return true; }
+        virtual void probe_notification() {};
+        // END ATC STUFF ADDED BY RLG from GRBL ATC code
 
         // Name is required for the configuration factory to work.
         virtual const char* name() const = 0;
@@ -76,6 +88,12 @@ namespace Spindles {
         void validate() override {
             // TODO: Validate spinup/spindown delay?
         }
+
+        //ATC ADDtion by RLG
+        //protected:
+        uint8_t current_tool = 0;
+
+        //virtual void applyOffset(bool activating);
 
         void afterParse() override;
 

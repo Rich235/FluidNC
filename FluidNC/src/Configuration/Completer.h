@@ -31,6 +31,9 @@ namespace Configuration {
         void item(const char* name, uint32_t& value, uint32_t minValue, uint32_t maxValue) override { item(name); }
         void item(const char* name, float& value, float minValue, float maxValue) override { item(name); }
         void item(const char* name, std::vector<speedEntry>& value) override { item(name); }
+        
+        //void item(const char* name, std::vector<float>& value) override { item(name); }
+        
         void item(const char* name, UartData& wordLength, UartParity& parity, UartStop& stopBits) override { item(name); }
         void item(const char* name, std::string& value, int minLength, int maxLength) override { item(name); }
         void item(const char* name, Pin& value) { item(name); }

@@ -25,6 +25,7 @@ namespace Configuration {
         }
     }
 
+
     void Generator::leave() {
         if (!lastIsNewline_) {
             log_to(dst_, "");

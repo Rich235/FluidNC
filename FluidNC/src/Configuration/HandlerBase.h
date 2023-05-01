@@ -1,5 +1,6 @@
 // Copyright (c) 2021 -	Stefan de Bruijn
 // Use of this source code is governed by a GPLv3 license that can be found in the LICENSE file.
+// Modified for ATC by RLG
 
 #pragma once
 
@@ -45,7 +46,15 @@ namespace Configuration {
         }
 
         virtual void item(const char* name, float& value, float minValue = -3e38, float maxValue = 3e38)  = 0;
-        virtual void item(const char* name, std::vector<speedEntry>& value)                               = 0;
+        virtual void item(const char* name, std::vector<speedEntry>& value)= 0;
+        
+        //added for ATC positions:
+        //This seems to be a problem to add with Competer.ccp throwing errors
+        
+        //virtual void item(const char* name, std::vector<float>& value)= 0;
+        
+        //ATC
+
         virtual void item(const char* name, UartData& wordLength, UartParity& parity, UartStop& stopBits) = 0;
 
         virtual void item(const char* name, Pin& value)       = 0;

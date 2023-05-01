@@ -21,6 +21,13 @@ namespace Configuration {
         Channel& dst_;
         bool     lastIsNewline_ = false;
 
+        inline void indent() {
+            lastIsNewline_ = false;
+            for (int i = 0; i < indent_ * 2; ++i) {
+                dst_ << ' ';
+            }
+        }
+
         void enter(const char* name);
         void add(Configuration::Configurable* configurable);
         void leave();
@@ -69,6 +76,23 @@ namespace Configuration {
             }
             send_item(name, s);
         }
+
+//added for ATC tool positions:
+        void item(const char* name, std::vector<float>& value) {
+            indent();
+            dst_ << name << ": ";
+            if (value.size() == 0) {
+                dst_ << "None";
+            } else {
+                const char* separator = "";
+                for (float n : value) {
+                    dst_ << separator << n;
+                    separator = " ";
+                }                
+            }
+            dst_ << '\n';
+        }
+//ATC
 
         void item(const char* name, UartData& wordLength, UartParity& parity, UartStop& stopBits) override {
             std::string s;
