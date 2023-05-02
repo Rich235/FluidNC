@@ -67,6 +67,9 @@ namespace Spindles {
         int                                    _tool = -1;
         std::vector<float>                     _offset;
         std::vector<Configuration::speedEntry> _speeds;
+        
+        //ATC
+        std::vector<float>                     _cfg_float_test;
 
         bool _off_on_alarm = false;
 
@@ -104,6 +107,7 @@ namespace Spindles {
             }
             handler.item("tool_num", _tool, 0, MaxToolNumber);
             handler.item("speed_map", _speeds);
+            handler.item("vec_float", _cfg_float_test);
             handler.item("off_on_alarm", _off_on_alarm);
         }
 

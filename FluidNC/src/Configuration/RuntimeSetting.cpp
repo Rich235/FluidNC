@@ -176,7 +176,8 @@ namespace Configuration {
                 // Parser.cpp speedEntryValue(), albeit using std::string instead of
                 // StringRange.  It might be better to have a single std::string version,
                 // then pass it StringRange.str()
-                std::string             newStr(newValue_);
+                std::string newStr(newValue_);
+
                 std::vector<speedEntry> smValue;
                 while (newStr.length()) {
                     speedEntry  entry;
@@ -200,6 +201,9 @@ namespace Configuration {
             }
         }
     }
+
+    //ATC
+    void RuntimeSetting::item(const char* name, std::vector<float>& value) {}
 
     void RuntimeSetting::item(const char* name, IPAddress& value) {
         if (is(name)) {

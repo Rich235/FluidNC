@@ -67,26 +67,17 @@ namespace Spindles {
         auto axisConfig = config->_axes->_axis[Z_AXIS];
         top_of_z        = limitsMaxPosition(Z_AXIS) - axisConfig->_motors[0]->_pulloff;
 
-        /* not using this new ATC handler function until handler functions are working:
         if (_ets_mpos.size() != 3) {  // will use a for loop...and include tool locations...n_axis
             log_error("ATC ETS mpos wrong");
             return;  // failed
         }
-        */
 
-        //New Handler functions enabled here to show linking issue:
+        //New Handler functions to get tool height setter:
         tool[ETS_INDEX].mpos[X_AXIS] = _ets_mpos.at(0);
         tool[ETS_INDEX].mpos[Y_AXIS] = _ets_mpos.at(1);
         tool[ETS_INDEX].mpos[Z_AXIS] = _ets_mpos.at(2);
-        
-        /*
-        //Just for testing - hardcoding coordinates of ETS:
-        tool[ETS_INDEX].mpos[X_AXIS] = 157.00;
-        tool[ETS_INDEX].mpos[Y_AXIS] = 142.00;
-        tool[ETS_INDEX].mpos[Z_AXIS] = -31.00;
-        */
 
-       //New Handler functions enabled here to show linking issue:
+        //New Handler functions to set tool holder positions:
         for (int i = 0; i < TOOL_COUNT; i++) {
             if (_tool_mpos[i].size() != 3) {
                 log_error("ATC Tool mpos wrong. Tool:" << i + 1);
@@ -96,25 +87,6 @@ namespace Spindles {
             tool[i + 1].mpos[Y_AXIS] = _tool_mpos[i].at(1);
             tool[i + 1].mpos[Z_AXIS] = _tool_mpos[i].at(2);
         }
-        
-        /*
-        //Just for testing - hardcoding coordinates of Tool Positions:
-        tool[1].mpos[X_AXIS] = 197.0;
-        tool[1].mpos[Y_AXIS] = 142.0;
-        tool[1].mpos[Z_AXIS] = -26.0;
-
-        tool[2].mpos[X_AXIS] = 197.0;
-        tool[2].mpos[Y_AXIS] = 142.0 + 40;
-        tool[2].mpos[Z_AXIS] = -26.0;
-
-        tool[3].mpos[X_AXIS] = 197.0;
-        tool[3].mpos[Y_AXIS] = 142.0 + 80;
-        tool[3].mpos[Z_AXIS] = -26.0;
-
-        tool[4].mpos[X_AXIS] = 197.0;
-        tool[4].mpos[Y_AXIS] = 142.0 + 120;
-        tool[4].mpos[Z_AXIS] = -26.0;
-        */
 
         _atc_ok = true;
     }
@@ -140,6 +112,7 @@ namespace Spindles {
 
         if (new_tool == current_tool) {
             if (current_tool == MANUAL_CHG) {
+                log_info("ATC: Manual Change...");
                 set_ATC_open(true);
                 gc_exec_linef(true, Uart0, "G4P2");
                 set_ATC_open(false);
@@ -175,6 +148,7 @@ namespace Spindles {
             log_info("Grab manual tool change");
             // open...pause...close
             set_ATC_open(true);
+            log_info("ATC: Manual Change...");
             gc_exec_linef(true, Uart0, "G4P2");
             set_ATC_open(false);
             current_tool = 5;
@@ -214,6 +188,9 @@ namespace Spindles {
             return true;
         }
 
+        log_info("ATC: Auto Change...");
+        log_info(new_tool);
+
         go_above_tool(new_tool);
 
         set_ATC_open(true);                                                        // open ATC
@@ -223,6 +200,8 @@ namespace Spindles {
         goto_top_of_z();
 
         current_tool = new_tool;
+
+        log_info("ATC: Probe Tool Height...");
 
         if (!atc_toolsetter()) {  // check the length of the tool
             return false;
@@ -286,6 +265,13 @@ namespace Spindles {
             return false;
         }
         _atc_valve_pin.synchronousWrite(open);
+
+        if (open) {
+            log_info("ATC: Tool Release...");
+        } else {
+            log_info("ATC: Tool Clamp...");
+        }
+
         return true;
     }
 
@@ -354,7 +340,7 @@ namespace Spindles {
 
     bool KressATC::is_ATC_ok() {
         if (!_atc_ok) {
-            log_warn("ATC failed initialized");
+            log_warn("ATC failed to initialize");
             return false;
         }
         return true;

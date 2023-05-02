@@ -49,14 +49,9 @@ namespace Configuration {
         virtual void item(const char* name, std::vector<speedEntry>& value)= 0;
         
         //added for ATC positions:
-        //This seems to be a problem to add with Competer.ccp throwing errors when linking
-        
         virtual void item(const char* name, std::vector<float>& value)= 0;
-        
-        //ATC
-
+    
         virtual void item(const char* name, UartData& wordLength, UartParity& parity, UartStop& stopBits) = 0;
-
         virtual void item(const char* name, Pin& value)       = 0;
         virtual void item(const char* name, IPAddress& value) = 0;
 

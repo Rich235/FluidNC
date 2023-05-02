@@ -42,16 +42,13 @@ namespace Spindles {
             handler.item("atc_valve_pin", _atc_valve_pin);
             handler.item("atc_dustoff_pin", _atc_dustoff_pin);
             handler.item("ets_dustoff_pin", _toolsetter_dustoff);
-            
-            //These handler items won't compile as: virtual void item(const char* name, std::vector<float>& value)= 0; not accepted by Completer.cpp
-            //Replaced by hard values in KressATC.cpp line 95
 
-            //handler.item("ets_mpos_mm", _ets_mpos);
-            //handler.item("tool1_mpos_mm", _tool_mpos[0]);
-            //handler.item("tool2_mpos_mm", _tool_mpos[1]);
-            //handler.item("tool3_mpos_mm", _tool_mpos[2]);
-            //handler.item("tool4_mpos_mm", _tool_mpos[3]);
-            //handler.item("empty_safe_z", _empty_safe_z);
+            handler.item("ets_mpos_mm", _ets_mpos);
+            handler.item("tool1_mpos_mm", _tool_mpos[0]);
+            handler.item("tool2_mpos_mm", _tool_mpos[1]);
+            handler.item("tool3_mpos_mm", _tool_mpos[2]);
+            handler.item("tool4_mpos_mm", _tool_mpos[3]);
+            handler.item("empty_safe_z", _empty_safe_z);
 
             OnOff::group(handler);
         }

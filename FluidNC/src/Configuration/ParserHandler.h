@@ -130,6 +130,13 @@ namespace Configuration {
             }
         }
 
+        //ATC
+        void item(const char* name, std::vector<float>& value) override {
+            if (_parser.is(name)) {
+                value = _parser.floatArray();
+            }
+        }
+
         void item(const char* name, std::vector<speedEntry>& value) override {
             if (_parser.is(name)) {
                 value = _parser.speedEntryValue();
