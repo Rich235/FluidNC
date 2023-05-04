@@ -71,7 +71,7 @@ axes:
     steps_per_mm: 800
     max_rate_mm_per_min: 2000
     acceleration_mm_per_sec2: 25
-    max_travel_mm: 250
+    max_travel_mm: 50
     soft_limits: false
     homing:
       cycle: 1
@@ -110,19 +110,12 @@ coolant:
 probe:
   pin: gpio.23:low:pu
 
-# PWM:
-#   pwm_hz: 3000
-#   output_pin: gpio.2
-#   enable_pin: gpio.16
-#   direction_pin: NO_PIN
-#   disable_with_s0: true
-#   s0_with_disable: true
-#   spinup_ms: 1000
-#   spindown_ms: 1000
-#   tool_num: 0
-#   speed_map: 0=2.5% 10000=80%
-
-kress_atc:
+PWM:
+  pwm_hz: 3000
+  output_pin: gpio.2
+  enable_pin: gpio.16
+  direction_pin: NO_PIN
+  
   atc_valve_pin: gpio.13
   atc_dustoff_pin: NO_PIN
   ets_dustoff_pin: NO_PIN
@@ -131,16 +124,33 @@ kress_atc:
   tool2_mpos_mm: 20.0 10.0 -15.0
   tool3_mpos_mm: 40.0 10.0 -15.0
   tool4_mpos_mm: 50.0 10.0 -15.0
-  direction_pin: NO_PIN
-  output_pin: gpio.2
-  enable_pin: gpio.16
-  disable_with_s0: false
+  
+  disable_with_s0: true
   s0_with_disable: true
-  spinup_ms: 3000
-  spindown_ms: 4000
+  spinup_ms: 2000
+  spindown_ms: 2000
   tool_num: 0
-  speed_map: 0=0.000% 0=100.000% 1=100.000%
+  speed_map: 0=2.5% 10000=80%
 
+#kress_atc:
+#  atc_valve_pin: gpio.13
+#  atc_dustoff_pin: NO_PIN
+#  ets_dustoff_pin: NO_PIN
+#  ets_mpos_mm: 10.00 10.00 -10.00
+#  tool1_mpos_mm: 20.0 10.0 -15.0
+#  tool2_mpos_mm: 20.0 10.0 -15.0
+#  tool3_mpos_mm: 40.0 10.0 -15.0
+#  tool4_mpos_mm: 50.0 10.0 -15.0
+#  direction_pin: NO_PIN
+#  output_pin: gpio.19
+#  enable_pin: NO_PIN
+#  disable_with_s0: true
+#  s0_with_disable: true
+#  pwm_hz: 3000
+#  spinup_ms: 2000
+#  spindown_ms: 2000
+#  tool_num: 0
+#  speed_map: 0=2.5% 10000=80%
 
 user_outputs:
   analog0_pin: NO_PIN
@@ -151,7 +161,7 @@ user_outputs:
   analog1_hz: 3000
   analog2_hz: 3000
   analog3_hz: 3000
-# digital0_pin: gpio.13
+  #digital0_pin: gpio.13
   digital0_pin: NO_PIN
   digital1_pin: gpio.19
   digital2_pin: gpio.21

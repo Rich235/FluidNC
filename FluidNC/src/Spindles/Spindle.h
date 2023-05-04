@@ -79,7 +79,7 @@ namespace Spindles {
         //virtual void deactivate() {};  // can't get these functions to compile
 
         // preselect is used to notify the ATC of a pending tool change in case the ATC can prepare
-        // for the futute M6.  This is done with M61, which is not parsed yet.
+        // for the future M6.  This is done with M61, which is not parsed yet.
         virtual bool tool_change(uint8_t new_tool, bool pre_select) { return true; }
         virtual void probe_notification() {};
         // END ATC STUFF ADDED BY RLG from GRBL ATC code
