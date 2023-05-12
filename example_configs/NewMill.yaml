@@ -11,34 +11,36 @@ oled:
    i2c_address: 60
    width: 128
    height: 64
-   radio_delay_ms: 1000
+  radio_delay_ms: 1000
 
 stepping:
   engine: RMT
-  idle_ms: 250
-  dir_delay_us: 1
-  pulse_us: 2
+  idle_ms: 255
+  dir_delay_us: 2
+  pulse_us: 3
   disable_delay_us: 0
 
 axes:
   shared_stepper_disable_pin: gpio.17:low
   
   x:
-    steps_per_mm: 800
-    max_rate_mm_per_min: 2000
-    acceleration_mm_per_sec2: 25
-    max_travel_mm: 400
-    soft_limits: false
+    steps_per_mm: 2000
+    max_rate_mm_per_min: 1500
+    acceleration_mm_per_sec2: 150
+    max_travel_mm: 275
+    soft_limits: true
+    hard_limits: true
     homing:
       cycle: 2
-      mpos_mm: 10
+      mpos_mm: 0
+      pulloff_mm: 1.0
       feed_mm_per_min: 50
-      seek_mm_per_min: 200
+      seek_mm_per_min: 500
       settle_ms: 500
-      positive_direction: false
+      positive_direction: true
     
     motor0:
-      limit_all_pin: gpio.35:low
+      limit_all_pin: gpio.35:high
       stepstick:
         direction_pin: gpio.5
         step_pin: gpio.18
@@ -46,43 +48,47 @@ axes:
       null_motor:
 
   y:
-    steps_per_mm: 800
-    max_rate_mm_per_min: 2000
-    acceleration_mm_per_sec2: 25
-    max_travel_mm: 200
-    soft_limits: false
+    steps_per_mm: 2000
+    max_rate_mm_per_min: 1400
+    acceleration_mm_per_sec2: 150
+    max_travel_mm: 127
+    soft_limits: true
+    hard_limits: true
     homing:
       cycle: 2
-      mpos_mm: 10
+      mpos_mm: 0
+      pulloff_mm: 1.0
       feed_mm_per_min: 50
-      seek_mm_per_min: 200
+      seek_mm_per_min: 500
       settle_ms: 500
       positive_direction: false
 
     motor0:
-      limit_all_pin: gpio.34:low
+      limit_all_pin: gpio.34:high
       stepstick:
-        direction_pin: gpio.14
+        direction_pin: gpio.14:low
         step_pin: gpio.27
     motor1:
       null_motor:
 
   z:
-    steps_per_mm: 800
-    max_rate_mm_per_min: 2000
-    acceleration_mm_per_sec2: 25
-    max_travel_mm: 50
-    soft_limits: false
+    steps_per_mm: 2000
+    max_rate_mm_per_min: 1800
+    acceleration_mm_per_sec2: 150
+    max_travel_mm: 200
+    soft_limits: true
+    hard_limits: true
     homing:
       cycle: 1
-      mpos_mm: 10
+      mpos_mm: 0
+      pulloff_mm: 1.0
       feed_mm_per_min: 50
-      seek_mm_per_min: 200
+      seek_mm_per_min: 500
       settle_ms: 500
-      positive_direction: false
+      positive_direction: true
 
     motor0:
-      limit_all_pin: gpio.39:low
+      limit_all_pin: gpio.39:high
       stepstick:
         direction_pin: gpio.26
         step_pin: gpio.25
@@ -114,8 +120,7 @@ PWM:
   pwm_hz: 3000
   output_pin: gpio.2
   enable_pin: gpio.16
-  direction_pin: NO_PIN
-  
+  direction_pin: NO_PIN 
   atc_valve_pin: gpio.13
   atc_dustoff_pin: NO_PIN
   ets_dustoff_pin: NO_PIN
@@ -123,8 +128,7 @@ PWM:
   tool1_mpos_mm: 20.0 10.0 -15.0
   tool2_mpos_mm: 20.0 10.0 -15.0
   tool3_mpos_mm: 40.0 10.0 -15.0
-  tool4_mpos_mm: 50.0 10.0 -15.0
-  
+  tool4_mpos_mm: 50.0 10.0 -15.0 
   disable_with_s0: true
   s0_with_disable: true
   spinup_ms: 2000
@@ -161,7 +165,6 @@ user_outputs:
   analog1_hz: 3000
   analog2_hz: 3000
   analog3_hz: 3000
-  #digital0_pin: gpio.13
   digital0_pin: NO_PIN
   digital1_pin: gpio.19
   digital2_pin: gpio.21
@@ -178,4 +181,4 @@ control:
   macro3_pin: NO_PIN
 
 start:
-  must_home: false
+  must_home: true
