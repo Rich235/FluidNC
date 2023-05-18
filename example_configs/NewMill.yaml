@@ -1,6 +1,6 @@
 name: "New Mill 4 Axis RLG"
 board: "ESP32 Dev Controller V4"
-# Note, I2C OLED installed OLED SCL gpio.12 and OLED SDA gpio.15
+# Note, I2C OLED installed OLED SCL  gpio.12 and OLED SDA gpio.15
 
 i2c0:
    sda_pin: gpio.15
@@ -16,7 +16,7 @@ oled:
 stepping:
   engine: RMT
   idle_ms: 255
-  dir_delay_us: 2
+  dir_delay_us: 3
   pulse_us: 3
   disable_delay_us: 0
 
@@ -24,9 +24,9 @@ axes:
   shared_stepper_disable_pin: gpio.17:low
   
   x:
-    steps_per_mm: 2000
-    max_rate_mm_per_min: 1500
-    acceleration_mm_per_sec2: 150
+    steps_per_mm: 1000
+    max_rate_mm_per_min: 3000
+    acceleration_mm_per_sec2: 250
     max_travel_mm: 275
     soft_limits: true
     hard_limits: true
@@ -36,21 +36,21 @@ axes:
       pulloff_mm: 1.0
       feed_mm_per_min: 50
       seek_mm_per_min: 500
-      settle_ms: 500
+      settle_ms: 100
       positive_direction: true
     
     motor0:
       limit_all_pin: gpio.35:high
       stepstick:
-        direction_pin: gpio.5
+        direction_pin: gpio.5:low
         step_pin: gpio.18
     motor1:
       null_motor:
 
   y:
-    steps_per_mm: 2000
-    max_rate_mm_per_min: 1400
-    acceleration_mm_per_sec2: 150
+    steps_per_mm: 1000
+    max_rate_mm_per_min: 3000
+    acceleration_mm_per_sec2: 250
     max_travel_mm: 127
     soft_limits: true
     hard_limits: true
@@ -60,21 +60,21 @@ axes:
       pulloff_mm: 1.0
       feed_mm_per_min: 50
       seek_mm_per_min: 500
-      settle_ms: 500
+      settle_ms: 100
       positive_direction: false
 
     motor0:
       limit_all_pin: gpio.34:high
       stepstick:
-        direction_pin: gpio.14:low
+        direction_pin: gpio.14
         step_pin: gpio.27
     motor1:
       null_motor:
 
   z:
-    steps_per_mm: 2000
-    max_rate_mm_per_min: 1800
-    acceleration_mm_per_sec2: 150
+    steps_per_mm: 1000
+    max_rate_mm_per_min: 2900
+    acceleration_mm_per_sec2: 200
     max_travel_mm: 200
     soft_limits: true
     hard_limits: true
@@ -84,21 +84,21 @@ axes:
       pulloff_mm: 1.0
       feed_mm_per_min: 50
       seek_mm_per_min: 500
-      settle_ms: 500
+      settle_ms: 100
       positive_direction: true
 
     motor0:
       limit_all_pin: gpio.39:high
       stepstick:
-        direction_pin: gpio.26
+        direction_pin: gpio.26:low
         step_pin: gpio.25
     motor1:
       null_motor:
 
   A:
-    steps_per_mm: 16
-    max_rate_mm_per_min: 2000
-    acceleration_mm_per_sec2: 25
+    steps_per_mm: 32
+    max_rate_mm_per_min: 40000
+    acceleration_mm_per_sec2: 5000
     max_travel_mm: 10000000.0
 
     motor0:
@@ -114,7 +114,7 @@ coolant:
   mist_pin:  NO_PIN
 
 probe:
-  pin: gpio.23:low:pu
+  pin: gpio.23:high:pu
 
 PWM:
   pwm_hz: 3000
@@ -129,10 +129,10 @@ PWM:
   tool2_mpos_mm: 20.0 10.0 -15.0
   tool3_mpos_mm: 40.0 10.0 -15.0
   tool4_mpos_mm: 50.0 10.0 -15.0 
-  disable_with_s0: true
+  disable_with_s0: false
   s0_with_disable: true
   spinup_ms: 2000
-  spindown_ms: 2000
+  spindown_ms: 4000
   tool_num: 0
   speed_map: 0=2.5% 10000=80%
 
@@ -154,7 +154,7 @@ PWM:
 #  spinup_ms: 2000
 #  spindown_ms: 2000
 #  tool_num: 0
-#  speed_map: 0=2.5% 10000=80%
+#  speed_map: 0=0% 10000=80%
 
 user_outputs:
   analog0_pin: NO_PIN
