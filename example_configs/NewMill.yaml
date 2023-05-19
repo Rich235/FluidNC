@@ -11,7 +11,7 @@ oled:
    i2c_address: 60
    width: 128
    height: 64
-  radio_delay_ms: 1000
+   radio_delay_ms: 1000
 
 stepping:
   engine: RMT
@@ -114,8 +114,8 @@ coolant:
   mist_pin:  NO_PIN
 
 probe:
-  pin: gpio.23:high:pu
-
+  pin: gpio.23:low
+# this was :high:pu
 PWM:
   pwm_hz: 3000
   output_pin: gpio.2
@@ -172,7 +172,7 @@ user_outputs:
 
 control:
   safety_door_pin: NO_PIN
-  reset_pin: gpio.36:low
+#  reset_pin: gpio.36:low
   feed_hold_pin: gpio.22:low:pu
   cycle_start_pin: NO_PIN
   macro0_pin: NO_PIN
@@ -181,4 +181,13 @@ control:
   macro3_pin: NO_PIN
 
 start:
-  must_home: true
+  must_home: false
+uart1:
+  txd_pin: gpio.1
+  rxd_pin: gpio.3
+  rts_pin: NO_PIN
+  baud: 115200
+  mode: 8N1
+
+uart_channel1:
+   uart_num: 1
