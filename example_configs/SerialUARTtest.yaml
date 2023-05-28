@@ -1,0 +1,47 @@
+name: "New Mill 4 Axis RLG"
+board: "ESP32 Dev Controller V4"
+# USB and UART1 Control Test Minimum Config pins 1 and 3
+
+uart2:
+  txd_pin: gpio.17
+  rxd_pin: gpio.16
+  baud: 115200
+  mode: 8N1
+
+uart_channel2:
+   uart_num: 2
+
+stepping:
+  engine: RMT
+  idle_ms: 255
+  dir_delay_us: 3
+  pulse_us: 3
+  disable_delay_us: 0
+
+axes:
+  x:
+    steps_per_mm: 1000
+    max_rate_mm_per_min: 3000
+    acceleration_mm_per_sec2: 250
+    max_travel_mm: 275
+    soft_limits: true
+    homing:
+      cycle: 2
+      mpos_mm: 0
+      feed_mm_per_min: 50
+      seek_mm_per_min: 500
+      settle_ms: 100
+      positive_direction: true
+    
+    motor0:
+      limit_all_pin: gpio.35:high
+      pulloff_mm: 1.0
+      hard_limits: true
+      stepstick:
+        direction_pin: gpio.5:low
+        step_pin: gpio.18
+    motor1:
+      null_motor:
+
+start:
+  must_home: false
